@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+The "My Meal" app is a web application built using React. It utilizes the Spoonacular API to fetch recipes and display them to users. The app allows users to search for recipes, browse recipes by category, and view popular meals. It provides a visually appealing and user-friendly interface.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -38,6 +40,24 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Dependencies
+
+@splidejs/react-splide: A library used for creating the carousel/slider component in the popular meals section.
+
+dotenv: Allows you to load environment variables from a .env file.
+
+framer-motion: A library for adding animations and transitions to React components.
+
+react-icons: Provides a collection of popular icons as React components.
+
+react-router-dom: A library for declarative routing in React applications.
+
+react-scripts: Configuration and scripts for building and running React applications.
+
+styled-components: A popular CSS-in-JS library that allows you to write CSS code within your JavaScript files.
+
+web-vitals: A library for measuring web performance metrics.
 
 ## Learn More
 
