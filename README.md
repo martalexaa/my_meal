@@ -18,8 +18,6 @@ React Router: The app utilizes the React Router library for handling client-side
 
 Styled Components: The app uses the styled-components library for styling its components, allowing for dynamic and customizable styles.
 
-Responsive Design: The app is designed to be responsive and can adapt to different screen sizes.
-
 ## Dependencies
 
 @splidejs/react-splide: A library used for creating the carousel/slider component in the popular meals section.
