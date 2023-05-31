@@ -4,61 +4,6 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Link } from 'react-router-dom';
 
-function Popular() {
-
-    const [popular, setPopular] = useState([]);
-
-    useEffect(() => {
-       getPopular();
-    }, []);
-
-    const getPopular = async () => {
-//check if something is in the localstorage
-        const check = localStorage.getItem('popular');
-//if yes, we don't fetch the data again
-//if note, save the popular recipes to the localstorage
-        if(check){
-            setPopular(JSON.parse(check));
-        }else{
-            const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=9`);
-            const data = await api.json();
-
-            localStorage.setItem('popular', JSON.stringify(data.recipes));
-            setPopular(data.recipes);
-            console.log(data.recipes);
-        }
-    }
-
-    return (
-        <div>
-                    <Wrapper>
-                        <h3>Popular Meals</h3>
-                        <Splide options={{ 
-                            perPage: 3,
-                            arrows: true,
-                            pagination: false,
-                            drag: "free",
-                            gap: "5rem"
-                         }}>
-                        {popular.map((recipe) => {
-                            return(
-                                <SplideSlide key={recipe.id}>
-                                  <Link to={'/recipe/' + recipe.id}>
-                                    <Card>
-                                      <p>{recipe.title}</p>
-                                      <img src={recipe.image} alt={recipe.title}/>
-                                     <Gradient />
-                                    </Card>
-                                  </Link>
-                                </SplideSlide>
-                            )
-                        })}
-                        </Splide>
-                    </Wrapper> 
-        </div>
-    )
-}
-
 const Wrapper = styled.div`
   margin: 4rem 0 rem;
 `;
@@ -104,7 +49,70 @@ const Gradient = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
 
+function Popular() {
 
+  const [popular, setPopular] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getPopular();
+  }, []);
+
+  const getPopular = async () => {
+    try {
+      const check = localStorage.getItem('popular');
+      if (check) {
+        setPopular(JSON.parse(check));
+      } else {
+        const api = await fetch(
+          `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=9`
+        );
+        if (!api.ok) {
+          throw new Error('Failed to fetch popular recipes');
+        }
+        const data = await api.json();
+
+        localStorage.setItem('popular', JSON.stringify(data.recipes));
+        setPopular(data.recipes);
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+      <Wrapper>
+        <h3>Popular Meals</h3>
+        <Splide options={{
+          perPage: 3,
+          arrows: true,
+          pagination: false,
+          drag: "free",
+          gap: "5rem"
+        }}>
+          {popular.map((recipe) => {
+            return (
+              <SplideSlide key={recipe.id}>
+                <Link to={'/recipe/' + recipe.id}>
+                  <Card>
+                    <p>{recipe.title}</p>
+                    <img src={recipe.image} alt={recipe.title} />
+                    <Gradient />
+                  </Card>
+                </Link>
+              </SplideSlide>
+            )
+          })}
+        </Splide>
+      </Wrapper>
+    </div>
+  )
+}
 
 export default Popular;
 
