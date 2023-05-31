@@ -34,8 +34,8 @@ function Popular() {
                     <Wrapper>
                         <h3>Popular Meals</h3>
                         <Splide options={{ 
-                            perPage: 4,
-                            arrows: false,
+                            perPage: 3,
+                            arrows: true,
                             pagination: false,
                             drag: "free",
                             gap: "5rem"
@@ -64,7 +64,7 @@ const Wrapper = styled.div`
 `;
 
 const Card = styled.div`
-  min-height: 20rem;
+  min-height: 15rem;
   border-radius: 2rem;
   overflow: hidden;
   position: relative;
