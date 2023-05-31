@@ -36,21 +36,34 @@ const Info = styled.div`
 `;
 
 function Recipe() {
-
   let params = useParams();
   const [details, setDetails] = useState({});
+  const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('instructions');
 
   const fetchDetails = useCallback(async () => {
-    const data = await fetch(`https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`);
-    const detailData = await data.json();
-    setDetails(detailData);
-    console.log(detailData);
+    try {
+      const response = await fetch(`https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`);
+
+      if (!response.ok) {
+        // Check for error status codes
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const detailData = await response.json();
+      setDetails(detailData);
+    } catch (error) {
+      setError(error.message);
+    }
   }, [params.name]);
 
   useEffect(() => {
     fetchDetails();
   }, [fetchDetails]);
+
+  if (error) {
+    return <div>An error occurred: {error}</div>; // Handle error state
+  }
 
   if (Object.keys(details).length === 0) {
     return <div>Loading...</div>; // Handle loading state
@@ -84,9 +97,7 @@ function Recipe() {
         )}
       </Info>
     </Detailwrapper>
-  )
+  );
 }
 
-
-
-export default Recipe
+export default Recipe;

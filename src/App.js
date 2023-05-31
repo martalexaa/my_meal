@@ -1,9 +1,9 @@
-import Pages from "./pages/Pages";
-import Category from "./components/Category";
-import { BrowserRouter, Link } from "react-router-dom";
-import Search from "./components/Search";
+import { BrowserRouter, Link } from 'react-router-dom';
+import Search from './components/Search';
+import Category from './components/Category';
+import Pages from './pages/Pages';
 import styled from 'styled-components';
-import { GiKnifeFork } from "react-icons/gi";
+import { GiKnifeFork } from 'react-icons/gi';
 
 const Logo = styled(Link)`
   text-decoration: none;
@@ -23,12 +23,13 @@ const Nav = styled.div`
 `;
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>
         <Nav>
           <GiKnifeFork />
-          <Logo to={'/'}>My Meal</Logo>
+          <Logo to="/">My Meal</Logo>
         </Nav>
         <Search />
         <Category />
